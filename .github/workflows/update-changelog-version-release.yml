@@ -1,36 +1,71 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
-
-# Controls when the workflow will run
+# .github/workflows/changelog.yml
+name: Update Changelog VERSION & Release
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
+      - master
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  changelog:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # 获取完整提交历史
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - uses: TriPSs/conventional-changelog-action@v5
+        id: changelog
+        with:
+          # 核心配置
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: 'CHANGELOG.md'           # 变更日志路径
+          version-file: 'VERSION.json'        # 版本号文件路径
+          commit-message: 'chore: Update CHANGELOG.md VERSION.json'  # 提交信息
+          
+          # 版本控制
+          version-pattern: '^v?(\d+\.\d+\.\d+)$'  # 版本号匹配规则
+          version-prefix: 'v'                   # 版本标签前缀
+          
+          # 提交类型配置（按重要性排序）
+          types: |
+            [
+              { "type": "feat", "section": "✨ Features", "hidden": false },
+              { "type": "fix", "section": "🐛 Bug Fixes", "hidden": false },
+              { "type": "perf", "section": "⚡ Performance Improvements", "hidden": false },
+              { "type": "refactor", "section": "♻️ Code Refactoring", "hidden": false },
+              { "type": "docs", "section": "📝 Documentation", "hidden": false },
+              { "type": "test", "section": "✅ Tests", "hidden": false },
+              { "type": "build", "section": "🏗️ Build System", "hidden": false },
+              { "type": "ci", "section": "🔄 Continuous Integration", "hidden": false },
+              { "type": "chore", "section": "🧹 Maintenance", "hidden": false },
+              { "type": "revert", "section": "⏪ Reverts", "hidden": false }
+            ]
+          
+          # 自定义配置
+          template: |
+            {{#each versions}}
+            ## {{#if this.tag}}[{{this.version}}]({{this.compareUrl}}){{else}}{{this.version}}{{/if}} ({{this.date}})
+            {{#each this.notes}}
+            ### {{this.title}}
+            {{#each this.commits}}
+            - {{#if this.issues}}{{#each this.issues}}[#{{this.number}}]({{this.url}}) {{/each}}{{/if}}{{this.subject}} ({{this.author}})
+            {{/each}}
+            {{/each}}
+            {{/each}}
+          
+          # 过滤配置
+          filter-by-commit-message: false  # 是否按提交信息过滤
+          filter-commit: '^.+$'            # 提交过滤正则
+          filter-commit-author: '^.+$'     # 作者过滤正则
+          
+          # 发布配置
+          create-release: true             # 创建 GitHub Release
+          release-title: 'Release {{version}}'  # 发布标题
+          draft: false                     # 是否为草稿
+          prerelease: false                # 是否为预发布
+          
+          # 高级配置
+          tag-prefix: 'v'                  # 标签前缀
+          compare-url: 'https://github.com/{{owner}}/{{repo}}/compare/{{previousTag}}...{{currentTag}}'  # 比较链接
+          debug: false                     # 调试模式
