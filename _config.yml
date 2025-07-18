@@ -1,0 +1,21 @@
+bundle installtitle: My Jekyll Site
+description: A simple and beautiful Jekyll website
+baseurl: ""
+url: ""
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# 网站作者信息
+author:
+  name: Your Name
+  email: your.email@example.com
+
+# 分页设置
+paginate: 5
+paginate_path: "/page:num/"
+
+# 导航菜单
+header_pages:
+  - about.md

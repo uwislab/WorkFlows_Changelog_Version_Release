@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-07-19T06:59:13+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">My Jekyll Site</title><subtitle>A simple and beautiful Jekyll website</subtitle><author><name>Your Name</name><email>your.email@example.com</email></author><entry><title type="html">欢迎来到我的博客</title><link href="http://localhost:4000/jekyll/update/2023/10/01/welcome.html" rel="alternate" type="text/html" title="欢迎来到我的博客" /><published>2023-10-01T20:00:00+08:00</published><updated>2023-10-01T20:00:00+08:00</updated><id>http://localhost:4000/jekyll/update/2023/10/01/welcome</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2023/10/01/welcome.html"><![CDATA[<p>这是我的第一篇博客文章。</p>
+
+<p>使用Jekyll可以轻松创建和管理静态网站和博客。</p>
+
+<h2 id="为什么选择jekyll">为什么选择Jekyll?</h2>
+
+<ol>
+  <li>简单易用</li>
+  <li>无需数据库</li>
+  <li>快速加载</li>
+  <li>支持Markdown</li>
+</ol>
+
+<p>希望你喜欢这个简单的网站！</p>]]></content><author><name>Your Name</name><email>your.email@example.com</email></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[这是我的第一篇博客文章。]]></summary></entry></feed>
