@@ -6,6 +6,9 @@ on:
       - main
       - master
 
+permissions:
+  contents: write
+  id-token: write
 jobs:
   changelog:
     runs-on: ubuntu-latest
