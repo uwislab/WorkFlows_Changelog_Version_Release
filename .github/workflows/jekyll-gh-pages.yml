@@ -30,13 +30,16 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        if: env.ACT != 'true'
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
+        if: env.ACT != 'true'
         with:
           source: ./
           destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        if: env.ACT != 'true'
 
   # Deployment job
   deploy:
@@ -49,3 +52,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        if: env.ACT != 'true'
