@@ -1,3 +1,12 @@
+## [0.1.2](https://github.com/uwislab/WorkFlows_Changelog_Version_Release/compare/v0.1.1...v0.1.2) (2025-07-23)
+
+
+### Bug Fixes
+
+* Update index.md ([bf399ae](https://github.com/uwislab/WorkFlows_Changelog_Version_Release/commit/bf399ae8aa7446fead0fdb1396f666fe4f684b62))
+
+
+
 ## [0.1.1](https://github.com/uwislab/WorkFlows_Changelog_Version_Release/compare/v0.1.0...v0.1.1) (2025-07-23)
 
 
