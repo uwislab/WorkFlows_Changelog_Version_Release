@@ -69,6 +69,19 @@ act
 act push
 ```
 
+### 解决容器内部网络问题（强烈推荐）
+
+由于 act 运行时会在 Docker 容器内访问 GitHub，容器内部必须能正常连接外网。如果你本地使用了代理（如 Clash、V2Ray、ShadowSocks 等），需要将代理环境变量传递给容器，否则会出现 TLS handshake timeout 等网络错误。
+
+推荐使用如下命令运行 act（适配 Apple M 系列芯片，并传递代理环境变量）：
+
+```
+act -W .github/workflows/update-changelog-version-release.yml --container-architecture linux/amd64 -s https_proxy=http://127.0.0.1:7890 -s http_proxy=http://127.0.0.1:7890 -s all_proxy=socks5://127.0.0.1:7890
+```
+
+- 其中 7890 为你的本地代理端口，请根据实际情况修改。
+- 该命令会将代理环境变量传递到容器内，确保容器内能正常访问 GitHub。
+
 ### 注意事项
 - 需要确保本地有 Docker 环境，act 依赖 Docker 运行。
 - 某些 Actions 可能依赖于 GitHub 上的环境或密钥，需提前配置好本地 secrets。
